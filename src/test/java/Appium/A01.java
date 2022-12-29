@@ -5,6 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -12,7 +13,7 @@ import java.net.URL;
 
 public class A01 {
     @Test
-    public void test() throws MalformedURLException {
+    public void test() throws MalformedURLException, InterruptedException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         //capabilities.setCapability("platformName","Android");
@@ -26,6 +27,20 @@ public class A01 {
         capabilities.setCapability("appActivity", "com.davemac327.gesture.tool.GestureBuilderActivity");
 
         AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+
+        System.out.println("app yuklendi");
+        Thread.sleep(3000);
+        driver.findElementById("com.android.permissioncontroller:id/continue_button").click();
+        Thread.sleep(3000);
+        MobileElement okButton=driver.findElementById("android:id/button1");
+        okButton.click();
+        System.out.println("izinler onaylandi");
+
+        MobileElement title=driver.findElementById("android:id/title");
+        Assert.assertTrue(title.isDisplayed());
+        System.out.println("ana sayfa acildi");
+
+
         //asagidaki kod tel kilitli ise acmamizi sagliyor
         if(driver.isDeviceLocked()){
             driver.unlockDevice();
