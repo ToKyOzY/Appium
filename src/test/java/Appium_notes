@@ -1,0 +1,30 @@
+Appium
+Ders 1 :
+- Appium açık kaynak kod olması dolayısıyla tercih edilen bir test yazılımıdır.
+- Appim Server Kullanıcının kodunu JSON Wire Protokolü vasıtasıyla ilgili cihaz üzerinde çalıştırır.
+- DesiredCapabilities Selenium'da bir classdir. Browser  özelliklerini ayarlayıp web applarda çapraz browser testi yapmamızı sağlar.
+- Her test senaryosu kendi Test Alanında çalisir. Test alanından Maksat Web browser, gerçek mobil cihaz, emulator veya simulatordur.(emulator: Android icin, simulator:IOS icin sanal cihaz)
+- DesiredCapabilities, Kodlarımızı Nerede yani hangi alanda Kullanacağımızı WebDriver’a iletme konusunda yardımcı olur.
+- Appium Desired Capabilities’e https://appium.io/docs/en/writing-running-appium/caps adresinden ulasilabilir.
+    - Bu adreste Desired Capabilities’in nasil kullanildigina dair aciklamalar mevcuttur.
+- Capability ile test yaparken “deviceName” kisminda Android cihaz testinde ne yazildigi onemli  degil ama IOS cihazlarda birebir cihaz ismini yazmamiz gerekiyor.
+Appium’da alinan hatalarin cozumu icin google’a “startup activity in appium” yazip, https://appium.io/docs/en/writing-running-appium/android/activity-startup/  sitesine gidilebilir.
+Burada gerekli dokumanlar mevcut. Sadece hatalar icin degil daha bircok veri bu sitede mevcut.
+bir uygulamanin appPackage ve appActivity bilgilerine ulasabilmek icin 2 yol kullanilabilir:
+    1.yol)- ilgili program telefonda acikken:
+            - cmd acilir
+            - adb shell komutu girilip entera basilir
+          - dumpsys window | grep -E "mCurrentFocus"  komutu girilip entera basilir
+    ekranda  mCurrentFocus=Window{f57457b u0 d0 p19190 com.davemac327.gesture.tool/com.davemac327.gesture.tool.GestureBuilderActivity} benzeri bir ibare cikacaktir
+    burada:
+        com.davemac327.gesture.tool  appPackage degri
+        com.davemac327.gesture.tool.GestureBuilderActivity   appActivity degeridir.
+    2. yol)  - ilgili cihaza Play Store’dan Apk info programi indirilir ve bu program vasitasi ile istenen programin appPackage bilgisine program isminin altindan,
+             appActivity  bilgisinede Activity kismindan ulasilabilir. Fakat Aktivity kismindan hangisinin alinacagi kismi biraz muallak :(
+- Appium ile test yapilirken ana mantik Appium uzerinden yapilan testlerin manuel olmasi, Selenium uzerinden yapilan testlerin ise manuel olmasidir.
+    -> Cihaz ister virtual ister real olsun adb(andrid debug bridge) vasitasi ile Appium server'a baglanir.
+    -> Appium uzerinden session olusturarak ister manuel test; istersekte Intelij vb IDE'ler vasitasiyle Appium server surulerek automation testler yapilabilir.
+-- capabilities.setCapability("noReset", "true") bu satir telefona program ilk kuruldugunda ilk kurulum gibi davranmadan direkt ana sayfanin acilmasini saglar.
+--Gesture programinda test yaparken yeni ekleme yaparken ekrana bir sekil cizdirilmesi gerekiyor. Bu basit bir bilgi ama malesef videoda yok. :(
+--chrome://inspect/#devices locate almak icin devtools
+

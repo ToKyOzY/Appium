@@ -3,7 +3,6 @@ package Appium;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
-import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,7 +10,7 @@ import org.testng.annotations.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class A01 {
+public class Appium01 {
     @Test
     public void test() throws MalformedURLException, InterruptedException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -26,6 +25,9 @@ public class A01 {
         capabilities.setCapability("appPackage", "com.davemac327.gesture.tool");
         capabilities.setCapability("appActivity", "com.davemac327.gesture.tool.GestureBuilderActivity");
 
+        //eger aplikasyonu izinler atLayarak anasayfada acilmasini istiyorsak asagidaki komutu kullaniriz
+        //capabilities.setCapability("noReset",true);
+
         AndroidDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
         System.out.println("app yuklendi");
@@ -36,10 +38,12 @@ public class A01 {
         okButton.click();
         System.out.println("izinler onaylandi");
 
-        MobileElement title=driver.findElementById("android:id/title");
-        Assert.assertTrue(title.isDisplayed());
+        MobileElement homeScreenTitle=driver.findElementById("android:id/title");
+        Assert.assertTrue(homeScreenTitle.isDisplayed());
+        Assert.assertEquals(homeScreenTitle.getText(), "Gesture Tool"); //or
         System.out.println("ana sayfa acildi");
 
+        driver.closeApp();
 
         //asagidaki kod tel kilitli ise acmamizi sagliyor
         if(driver.isDeviceLocked()){
